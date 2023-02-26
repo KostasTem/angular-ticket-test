@@ -1,0 +1,19 @@
+<div *ngIf="user">
+        <label>Name:</label><br>
+        <span>{{user.firstName}} {{user.lastName}}</span><br>
+        <label>Email:</label><br>
+        <span>{{user.email}}</span><br>
+        <label>Age:</label><br>
+        <span>{{user.age}}</span><br>
+        <label>Provider:</label><br>
+        <span>{{user.provider}}</span><br>
+        <label>Is Admin:</label><br>
+        <span>{{user.roles.includes("ADMIN") ? 'Yes' : 'No'}}</span><br>
+        <label>Performance:</label><br>
+    <select [disabled]="available_performances.length==0 && !user.roles.includes('ADMIN')"  (change)="change_per($event)">
+        <option>None</option>
+        <option *ngFor="let opt of available_performances" [value]="opt.name" >{{opt.name}}</option>
+        <option *ngIf="user.roles.includes('ADMIN')" selected>{{user.performance.name}}</option>
+    </select><br>
+    <button (click)="save_change()" [disabled]="user.performance==selected_performance" >Save</button>
+</div>

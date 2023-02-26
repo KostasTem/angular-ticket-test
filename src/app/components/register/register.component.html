@@ -1,0 +1,17 @@
+<div *ngIf="user">
+    <label>Email</label><br>
+    <input type="email" [(ngModel)]="user.email"><br>
+    <label>Password</label><br>
+    <input type="password" [(ngModel)]="user.password"><br>
+    <label>Confirm Password</label><br>
+    <input type="password" [(ngModel)]="confirm"><br>
+    <label>First Name</label><br>
+    <input type="text" [(ngModel)]="user.firstName"><br>
+    <label>Last Name</label><br>
+    <input type="text" [(ngModel)]="user.lastName"><br>
+    <label>Age</label><br>
+    <input type="number" min="18" max="99" [(ngModel)]="user.age"><br>
+    <label>Image</label><br>
+    <input type="file" class="file-upload" (change)="load_image($event)" /><br>
+    <button (click)="register()">Register</button>
+</div>

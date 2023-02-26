@@ -1,0 +1,21 @@
+<div *ngIf="show">
+    <label>Performance</label><br>
+    <input type="text" disabled="true" [(ngModel)]="show.performance.name" placeholder="Performance"><br>
+    <label>Performance</label>
+    <mat-form-field>
+        <input matInput type="datetime-local" [ngxMatDatetimePicker]="picker" [(ngModel)]="show_date_time" (ngModelChange)="get_available_auditoriums()" placeholder="Choose a date">
+        <mat-hint>MM/DD/YYYY HH:MM</mat-hint><br>
+        <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false"
+        [stepHour]="1" [stepMinute]="1" [stepSecond]="1"
+        [touchUi]="false" [enableMeridian]="false"
+        [disableMinute]="false" [hideTime]="false"></ngx-mat-datetime-picker>
+    </mat-form-field>
+    <label>Auditorium:</label><br>
+    <select [disabled]="show.id!=null||available_auditoriums==null" (change)="change_aud($event)" placeholder="Auditorium">
+        <option>None</option>
+        <option *ngFor="let aud of available_auditoriums" [value]="aud.name">{{aud.name}}</option>
+        <option *ngIf="show.auditorium!=null" selected>{{show.auditorium.name}}</option>
+    </select><br>
+    <button (click)="save_show()">Save</button>
+</div>

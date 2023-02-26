@@ -1,0 +1,34 @@
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Provider</th>
+        <th>Admin</th>
+        <th>Performance</th>
+        <th>Edit</th>
+    </tr>
+    <tr *ngFor="let user of user_list">
+        <td>
+            {{user.firstName}} {{user.lastName}}
+        </td>
+        <td>
+            {{user.email}}
+        </td>
+        <td>
+            {{user.age}}
+        </td>
+        <td>
+            {{user.provider}}
+        </td>
+        <td>
+            {{user.roles.includes("ADMIN") ? 'Yes' : 'No'}}
+        </td>
+        <td>
+            {{user.performance!=null ? user.performance.name : ""}}
+        </td>
+        <td>
+            <a routerLink="/users/{{user.email}}">Edit Roles</a>
+        </td>
+    </tr>
+</table>

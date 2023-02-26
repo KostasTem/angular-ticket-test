@@ -1,0 +1,8 @@
+<div>Shows</div>
+<a routerLink="/shows/new">Create Show</a>
+    <div *ngFor="let show of show_list">
+        <span>{{show.id}}||</span>
+        <span>{{show.dateTime}}||</span>
+        <a routerLink="/shows/{{show.id}}">Update Show</a>
+        <button (click)="delete_show(show.id)">Delete Show</button>
+</div>

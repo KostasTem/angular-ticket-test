@@ -1,0 +1,9 @@
+<div *ngIf="auditorium">
+    <label>Auditorium</label><br>
+    <input type="text" [disabled]="auditorium.id!=null" [(ngModel)]="auditorium.name" placeholder="Performance Name"><br>
+    <label>Rows</label><br>
+    <input type="text" [(ngModel)]="auditorium.rows" placeholder="Auditorium Name"><br>
+    <label>Seats Per Row</label><br>
+    <input type="text" [(ngModel)]="auditorium.seatsPerRow" placeholder="Auditorium Name"><br>
+    <button (click)="save_auditorium()">Save</button>
+</div>
