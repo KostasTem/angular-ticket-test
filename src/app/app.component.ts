@@ -31,7 +31,7 @@ export class AppComponent implements AfterViewInit{
 
   ngAfterViewInit(): void {
     google.accounts.id.initialize({
-      client_id: "828794899730-o8d8o76vll1mu6eff1ngile60u5k4re8.apps.googleusercontent.com",
+      client_id: "",
       callback: (response: any) => this.authService.handleGoogleSignIn(response)
     });
     google.accounts.id.renderButton(
