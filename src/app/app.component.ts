@@ -30,14 +30,6 @@ export class AppComponent implements AfterViewInit{
   constructor(private showService:ShowService, private performanceService:PerformanceService,private jwtHelper:JwtHelperService,private authService:AuthService,private reservationService:ReservationService,private sanitizer:DomSanitizer){}
 
   ngAfterViewInit(): void {
-    google.accounts.id.initialize({
-      client_id: "",
-      callback: (response: any) => this.authService.handleGoogleSignIn(response)
-    });
-    google.accounts.id.renderButton(
-      document.getElementById("buttonDiv"),
-      { size: "large", type: "icon", shape: "pill" }  // customization attributes
-    );
   }
 
   check_user(){
