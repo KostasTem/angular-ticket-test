@@ -1,7 +1,7 @@
 <input type="email" [(ngModel)]="email">
 <input type="password" [(ngModel)]="password">
-<button (click)="login()">Login</button>
-<button (click)="logout()">Logout</button>
+<button (click)="login()" class="btn btn-primary">Login</button>
+<button (click)="logout()" >Logout</button>
 <a routerLink="register">Register</a>
 <div *ngIf="check_user()">Logged In as role: 
 <img [src]="imageSrc" width="200" height="300">
@@ -12,7 +12,7 @@
     <a routerLink="/shows">Shows</a>
 </div>
 <div *ngIf="check_user_role().includes('SYSTEM_ADMIN')">System Admin<br>
-    <a routerLink="/auditoriums">Auditoriums</a>
+    <a routerLink="/auditoriums">Auditoriums</a><br>
     <a routerLink="/users">Users</a>
 </div>
 </div>

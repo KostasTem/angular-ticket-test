@@ -1,8 +1,8 @@
 <div *ngIf="ticket_list">
     <div *ngFor="let sub_arr of ticket_list">
         <span *ngFor="let ticket of sub_arr">
-            <button *ngIf="ticket.reservation!=null" [style.background-color]="ticket.checkedIn ? 'blue':'red'">{{ticket.seat}}</button>
-            <button *ngIf="ticket.reservation==null" (click)="select_seat(ticket.seat)" [style.background-color]="selected_tickets.includes(ticket.seat) ? 'green':'grey'">{{ticket.seat}}</button>
+            <button *ngIf="ticket.reservation!=null" class="btn" [style.background-color]="ticket.checkedIn ? 'blue':'red'">{{ticket.seat}}</button>
+            <button *ngIf="ticket.reservation==null" class="btn" (click)="select_seat(ticket.seat)" [style.background-color]="selected_tickets.includes(ticket.seat) ? 'green':'grey'">{{ticket.seat}}</button>
         </span>
     </div>
     <button (click)="make_reservation()">Make Reservation</button>

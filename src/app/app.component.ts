@@ -1,4 +1,4 @@
-import { Component,AfterViewInit } from '@angular/core';
+import { Component,AfterViewInit, OnInit } from '@angular/core';
 
 import { AuthService } from './services/auth.service';
 import { ShowService } from './services/show.service';
@@ -18,11 +18,9 @@ declare var google: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements AfterViewInit,OnInit{
   email: string;
   password: string;
-  num: number;
-  user: AppUser = null;
   reservation_list: ReservationResponse[];
   show_list: Show[];
   auditorium_list:Auditorium[];
@@ -30,6 +28,18 @@ export class AppComponent implements AfterViewInit{
   constructor(private showService:ShowService, private performanceService:PerformanceService,private jwtHelper:JwtHelperService,private authService:AuthService,private reservationService:ReservationService,private sanitizer:DomSanitizer){}
 
   ngAfterViewInit(): void {
+  }
+  ngOnInit(): void {
+      if(localStorage.getItem("access_token")!=null){
+        this.authService.user = JSON.parse(localStorage.getItem("user"));
+        if(localStorage.getItem("performance")!=null){
+          this.authService.performance = JSON.parse(localStorage.getItem("performance"));
+        }
+        if(this.authService.user.image!=null){
+          this.imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' 
+          + this.authService.user.image);
+        }
+      }
   }
 
   check_user(){
@@ -39,32 +49,31 @@ export class AppComponent implements AfterViewInit{
   check_user_role(){
     return this.authService.user.roles;
   }
-  make_reservation(){
-    this.reservationService.createReservation(this.num,["A1","B1","C1"]).subscribe(res => console.log(res.body));
-  }
   
   login(){
     this.authService.login(this.email, this.password).subscribe(response => {
       if(response.status==200){
+          this.email = "";
+          this.password = "";
           localStorage.setItem("access_token",response.body.token);
           const dec_data = this.jwtHelper.decodeToken(response.body.token);
           this.authService.user = new AppUser(dec_data.sub,dec_data.roles.split(" "),new Date(dec_data.exp));
+          localStorage.setItem("user",JSON.stringify(this.authService.user));
           if(this.authService.user.roles.includes("ADMIN")){
-            this.performanceService.getPerformance().subscribe(res => this.authService.performance = res.body)
+            this.performanceService.getPerformance().subscribe(res =>
+              { 
+                this.authService.performance = res.body
+                localStorage.setItem("performance",JSON.stringify(res.body));
+              });
           }
-          this.imageSrc = response.body.user.image!=null ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' 
-            + response.body.user.image.split(",")[1]):"";
+          if(response.body.user.image!=null){
+            this.imageSrc = response.body.user.image!=null ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' 
+              + response.body.user.image.split(",")[1]):"";
+          }
       }
     });
   }
   logout(){
     this.authService.logout();
-  }
-  test_auth(){
-  this.showService.getShows().subscribe(res => {
-    let show: Show = res.body.at(1).shows.find(s => s.performance.name === "Performance 1");
-    console.log(show);
-    this.showService.deleteShow(show.id).subscribe(res => console.log(res.body));
-  });
   }
 }
