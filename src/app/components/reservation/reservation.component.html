@@ -20,7 +20,7 @@
     <td>{{reservation.reservation.timestamp.toString().split("GMT")[0]}}</td>
     <td>{{reservation.show.performance.name}}</td>
     <td>{{reservation.show.auditorium.name}}</td>
-    <td>reservation.reservation.tickets.join(",")</td>
+    <td>{{reservation.reservation.tickets.join(",")}}</td>
     <td>{{reservation.show.dateTime.toString().split("GMT")[0]}}</td>
     <td>{{reservation.show.performance.ticketPrice*reservation.reservation.tickets.length}}</td>
     <td><button (click)="delete_reservation(reservation.reservation.id)" [disabled]="reservation.show.dateTime.getTime() - 60*60000 <= today.getTime()">Delete reservation</button></td>
