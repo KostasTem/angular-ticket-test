@@ -10,6 +10,8 @@ import { AuditoriumDetailComponent } from './components/auditorium-detail/audito
 import { UserComponent } from './components/user/user.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { RegisterComponent } from './components/register/register.component';
+import {LoginComponent} from "./components/login/login.component";
+import {MainComponent} from "./components/main/main.component";
 
 
 const routes: Routes = [
@@ -24,6 +26,8 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent},
   {path:'shows/new',component:ShowDetailComponent},
   {path:'auditoriums/new',component:AuditoriumDetailComponent},
+  {path:'login',component:LoginComponent},
+  {path:'',component:MainComponent},
 ];
 
 @NgModule({

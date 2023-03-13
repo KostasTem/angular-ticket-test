@@ -18,8 +18,21 @@ export class AuthService {
   handleGoogleSignIn(response: any) {
     const headers = { 'Content-Type': 'application/json; charset=utf-8' };
     const body = { googleToken: response.credential }
-    this.http.post<any>('https://localhost:8443/api/auth/google', JSON.stringify(body), {headers}).subscribe(data => {
-      console.log(data);
+    this.http.post<any>('https://localhost:8443/api/auth/google', JSON.stringify(body), {headers,observe:"response"}).subscribe(response => {
+      if(response.status==200) {
+        this.logout();
+        localStorage.setItem("access_token", response.body.token);
+        const dec_data = this.jwtHelper.decodeToken(response.body.token);
+        this.user = new AppUser(dec_data.sub, dec_data.roles.split(" "), new Date(dec_data.exp));
+        localStorage.setItem("user", JSON.stringify(this.user));
+        if (this.user.roles.includes("ADMIN")) {
+          this.performanceService.getPerformance().subscribe(res => {
+            this.performance = res.body
+            localStorage.setItem("performance", JSON.stringify(res.body));
+          });
+        }
+        this.router.navigateByUrl("/");
+      }
   });
   }
   register(user:AppUser){

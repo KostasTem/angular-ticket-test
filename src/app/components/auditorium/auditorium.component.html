@@ -8,4 +8,5 @@
         <a routerLink="/auditoriums/{{aud.id}}">Update Auditorium||</a>
         <button (click)="delete_auditorium(aud.id)">Delete Auditorium</button>
     </div>
+  <div *ngIf="auditorium_list==null || auditorium_list.length==0">There are no auditoriums.</div>
 </div>

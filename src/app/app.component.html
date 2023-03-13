@@ -1,19 +1,30 @@
-<input type="email" [(ngModel)]="email">
-<input type="password" [(ngModel)]="password">
-<button (click)="login()" class="btn btn-primary">Login</button>
-<button (click)="logout()" >Logout</button>
-<a routerLink="register">Register</a>
-<div *ngIf="check_user()">Logged In as role: 
-<img [src]="imageSrc" width="200" height="300">
-<div *ngIf="check_user_role().includes('USER')">User:<br>
-    <a routerLink="/reservations">Reservations</a>
-</div>
-<div *ngIf="check_user_role().includes('ADMIN')">Admin:<br>
-    <a routerLink="/shows">Shows</a>
-</div>
-<div *ngIf="check_user_role().includes('SYSTEM_ADMIN')">System Admin<br>
-    <a routerLink="/auditoriums">Auditoriums</a><br>
-    <a routerLink="/users">Users</a>
-</div>
-</div>
+<table>
+  <tr><td>
+<a routerLink="" class="btn btn-primary">Home</a>
+  </td>
+    <span *ngIf="check_user()">
+  <td *ngIf="check_user_role().includes('USER')">
+    <a routerLink="/reservations" class="btn btn-primary">Reservations</a>
+  </td>
+  <td *ngIf="check_user_role().includes('ADMIN')">
+    <a routerLink="/shows" class="btn btn-primary">Shows</a>
+  </td>
+  <span *ngIf="check_user_role().includes('SYSTEM_ADMIN')">
+    <td>
+    <a routerLink="/auditoriums" class="btn btn-primary">Auditoriums</a>
+    </td>
+    <td>
+    <a routerLink="/users" class="btn btn-primary">Users</a>
+    </td>
+  </span>
+    </span>
+    <td>
+      <a routerLink="login" *ngIf="!check_user()" class="btn btn-primary">Login</a>
+    </td>
+    <td>
+      <button (click)="logout()" *ngIf="check_user()">Logout</button>
+    </td>
+  </tr>
+</table>
 <router-outlet></router-outlet>
+

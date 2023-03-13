@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { AppUser } from 'src/app/DataClasses/AppUser';
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,12 +8,18 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
   @Input() user:AppUser = new AppUser(null,null,null);
   imageFile;
   confirm:string = "";
 
   constructor(private authService:AuthService,private router:Router){}
+
+  ngOnInit() {
+    if(this.authService.user!=null){
+      this.router.navigateByUrl("");
+    }
+  }
 
   load_image(event: Event){
     var eventTarget = (event.target as HTMLInputElement);

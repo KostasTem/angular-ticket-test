@@ -14,7 +14,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 export class ReservationDetailComponent implements OnInit{
 
   ticket_list:Ticket[][];
-  
+
   selected_tickets: string[] = [];
 
   show:Show;
@@ -48,7 +48,7 @@ export class ReservationDetailComponent implements OnInit{
               }
               return a.length- b.length;
             });
-            this.ticket_list = this.chunkArrayInGroups(temp,res.body.show.auditorium.seatsPerRow);  
+            this.ticket_list = this.chunkArrayInGroups(temp,res.body.show.auditorium.seatsPerRow);
             this.show = res.body.show;
             this.show.dateTime = new Date(Date.parse(this.show.dateTime.toString()));
           }
@@ -82,7 +82,6 @@ export class ReservationDetailComponent implements OnInit{
     this.reservationService.createReservation(this.show.id,this.selected_tickets).subscribe(res =>
       {
         if(res.status==200){
-          console.log(res.body);
           this.router.navigateByUrl("/reservations");
         }
       });

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Auditorium } from '../DataClasses/Auditorium';
-import { Observable } from 'rxjs';
+import {catchError, Observable} from 'rxjs';
 import { AuthService } from './auth.service';
 
 

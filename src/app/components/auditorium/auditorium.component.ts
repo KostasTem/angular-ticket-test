@@ -14,7 +14,7 @@ export class AuditoriumComponent implements OnInit {
   auditorium_list: Auditorium[];
 
   constructor(private auditoriumService:AuditoriumService,private authService:AuthService,private router:Router){}
-  
+
   ngOnInit(): void {
     if(this.authService.user==null || !this.authService.user.roles.includes("SYSTEM_ADMIN")){
       this.router.navigateByUrl("/");
@@ -24,12 +24,14 @@ export class AuditoriumComponent implements OnInit {
   }
 
   delete_auditorium(id: number){
-    this.auditoriumService.deleteAuditorium(id).subscribe(res => {
-      if(res.status==200){
-        console.log(res.body);
-        this.get_auditoriums();
-      }
-    });
+    if(confirm("Are you sure you want to delete this auditorium?")==true) {
+      this.auditoriumService.deleteAuditorium(id).subscribe(res => {
+        if (res.status == 200) {
+          alert(res.body);
+          this.get_auditoriums();
+        }
+      });
+    }
   }
   get_auditoriums(){
     this.auditoriumService.getAuditoriums().subscribe(res => {

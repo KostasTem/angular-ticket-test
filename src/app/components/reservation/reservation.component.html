@@ -1,5 +1,3 @@
-<input type="number" min=0 [(ngModel)]="test_id">
-<a routerLink="/reservations/new/{{test_id}}">Create Reservation</a>
 <div *ngFor="let reservation of reservation_list">
         <span>{{reservation.reservation.id}}||</span>
         <span>{{reservation.reservation.timestamp}}||</span>
@@ -8,3 +6,4 @@
         <button (click)="delete_reservation(reservation.reservation.id)" [disabled]="reservation.show.dateTime.getTime() - 60*60000 <= today.getTime()">Delete reservation</button>
         <button (click)="check_in(reservation.reservation.id)" [disabled]="reservation.reservation.tickets.at(0).checkedIn || today.getTime() >= reservation.show.dateTime.getTime() + reservation.show.performance.duration*60000 || today.getTime() <= reservation.show.dateTime.getTime() - 60*60000">Check In</button>
 </div>
+<div *ngIf="reservation_list==null || reservation_list.length==0">You have no reservations</div>

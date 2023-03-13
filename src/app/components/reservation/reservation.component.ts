@@ -31,12 +31,14 @@ export class ReservationComponent implements OnInit{
   }
 
   delete_reservation(id: number){
-    this.reservationService.deleteReservation(id).subscribe(res => {
-      if(res.status==200){
-        console.log(res.body);
-        this.get_reservations();
-      }
-    });
+    if(confirm("Are you sure you want to delete this reservation")) {
+      this.reservationService.deleteReservation(id).subscribe(res => {
+        if (res.status == 200) {
+          console.log(res.body);
+          this.get_reservations();
+        }
+      });
+    }
   }
 
 
@@ -55,7 +57,6 @@ export class ReservationComponent implements OnInit{
   check_in(id:number){
     this.ticketService.checkIn(id).subscribe(res =>{
       if(res.status==200){
-        console.log(res.body);
         this.get_reservations();
       }
     });

@@ -6,6 +6,7 @@
         <th>Provider</th>
         <th>Admin</th>
         <th>Performance</th>
+        <th>Image</th>
         <th>Edit</th>
     </tr>
     <tr *ngFor="let user of user_list">
@@ -27,8 +28,10 @@
         <td>
             {{user.performance!=null ? user.performance.name : ""}}
         </td>
+        <td><img *ngIf="user.image!=null" [src]="user.image" width="50px" height="50px"></td>
         <td>
             <a routerLink="/users/{{user.email}}">Edit Roles</a>
         </td>
     </tr>
 </table>
+<div *ngIf="user_list==null || user_list.length==0">There are no register users other than you.</div>

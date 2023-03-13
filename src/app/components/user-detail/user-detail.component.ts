@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AppUser } from 'src/app/DataClasses/AppUser';
-import { Performance } from 'src/app/DataClasses/Performance';
-import { AppUserService } from 'src/app/services/app-user.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { PerformanceService } from 'src/app/services/performance.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AppUser} from 'src/app/DataClasses/AppUser';
+import {Performance} from 'src/app/DataClasses/Performance';
+import {AppUserService} from 'src/app/services/app-user.service';
+import {AuthService} from 'src/app/services/auth.service';
+import {PerformanceService} from 'src/app/services/performance.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -27,7 +27,7 @@ export class UserDetailComponent implements OnInit{
     }
     const email = this.route.snapshot.paramMap.get('email');
     if(email!=null || email!=""){
-      this.appUserService.getUser(email).subscribe(res => 
+      this.appUserService.getUser(email).subscribe(res =>
         {
           if(res.status==200){
             this.user = res.body;
@@ -54,8 +54,7 @@ export class UserDetailComponent implements OnInit{
   }
 
   change_per(event:Event){
-    const per = this.available_performances.find(performance => performance.name == (event.target as HTMLInputElement).value);
-    this.selected_performance = per;
+    this.selected_performance = this.available_performances.find(performance => performance.name == (event.target as HTMLInputElement).value);
   }
 
   save_change(){
@@ -70,10 +69,7 @@ export class UserDetailComponent implements OnInit{
     this.appUserService.updateUser(this.user.email,roles,this.selected_performance.id).subscribe(res =>
       {
         if(res.status==200){
-          console.log(res.body);
-        }
-        else{
-          alert("Error During Update. Changes Weren't Saved");
+          alert("Success");
         }
         this.router.navigateByUrl("/users");
       });

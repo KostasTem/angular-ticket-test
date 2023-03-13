@@ -1,0 +1,32 @@
+<ngb-carousel *ngIf="images" [showNavigationArrows]="false" [interval]="8000" >
+  <ng-template ngbSlide *ngFor="let perf of randomPerformances">
+    <div class="picsum-img-wrapper" style="display: block;margin-left: auto;margin-right: auto;">
+      <img [src]="perf.image" alt="Random first slide" style="display: block;margin-left: auto;margin-right: auto;width: 50%;height:500px;" />
+    </div>
+    <div class="carousel-caption">
+      <h3>{{perf.name}}</h3>
+    </div>
+  </ng-template>
+</ngb-carousel>
+<mat-form-field class="example-full-width">
+  <mat-label>Select Date For Show</mat-label>
+  <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (dateChange)="select_date()">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker [dateClass]="dateClass" #picker> </mat-datepicker>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Performance</mat-label>
+  <mat-select (selectionChange)="select_performance($event)">
+    <mat-option *ngFor="let perf of uniquePerformances" [value]="perf.id">
+      {{perf.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<br><br>
+<div *ngIf="selectedShow!=null">
+  <div>Performance: {{selectedShow.performance.name}}</div><br>
+  <div>Time: {{selectedShow.dateTime}}</div>
+  <div>Duration: {{selectedShow.performance.duration}}</div>
+  <div>Ticket Price: {{selectedShow.performance.ticketPrice}}</div>
+  <button (click)="reservation_redirect()">Make Reservation</button>
+</div>

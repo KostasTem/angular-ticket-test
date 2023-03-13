@@ -54,7 +54,6 @@ export class ShowDetailComponent implements OnInit{
 
   save_show(){
     if(this.show.id == null){
-      console.log(this.show);
       if(this.show.auditorium!=null){
         this.showService.createShow(this.show).subscribe(res => {
           if(res.status==200){
@@ -62,6 +61,9 @@ export class ShowDetailComponent implements OnInit{
             this.router.navigateByUrl("/shows");
           }
         });
+      }
+      else{
+        alert("You Must Select An Auditorium Before Saving This Show");
       }
     }
     else {
@@ -76,7 +78,7 @@ export class ShowDetailComponent implements OnInit{
       {
         if(res.status==200){
           if(res.body.length==0){
-            alert("No available auditoriums for this time");
+            alert("No Available Auditoriums For This Time");
           }
           else{
             this.available_auditoriums = res.body;

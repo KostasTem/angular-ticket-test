@@ -3,4 +3,5 @@ export class Performance{
     name: string;
     duration:number;
     ticketPrice:number;
+    image:string;
 }

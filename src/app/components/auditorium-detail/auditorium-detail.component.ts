@@ -14,7 +14,7 @@ export class AuditoriumDetailComponent {
 
 
   constructor(private auditoriumService:AuditoriumService,private authService:AuthService,private route:ActivatedRoute,private router:Router){}
-  
+
   ngOnInit(): void {
     if(this.authService.user==null || !this.authService.user.roles.includes("SYSTEM_ADMIN")){
       this.router.navigateByUrl("/");
@@ -36,7 +36,6 @@ export class AuditoriumDetailComponent {
     if(this.auditorium.id==null){
       this.auditoriumService.createAuditorium(this.auditorium).subscribe(res => {
         if(res.status==200){
-          console.log(res.body);
           this.router.navigateByUrl("/auditoriums");
         }
       });
@@ -44,7 +43,6 @@ export class AuditoriumDetailComponent {
     else{
       this.auditoriumService.updateAuditorium(this.auditorium.id,this.auditorium).subscribe(res => {
         if(res.status==200){
-          console.log(res.body);
           this.router.navigateByUrl("/auditoriums");
         }
       });
