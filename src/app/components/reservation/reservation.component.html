@@ -1,9 +1,33 @@
-<div *ngFor="let reservation of reservation_list">
-        <span>{{reservation.reservation.id}}||</span>
-        <span>{{reservation.reservation.timestamp}}||</span>
-        <span>{{reservation.show.id}}||</span>
-        <span>{{reservation.show.auditorium.id}}</span>
-        <button (click)="delete_reservation(reservation.reservation.id)" [disabled]="reservation.show.dateTime.getTime() - 60*60000 <= today.getTime()">Delete reservation</button>
-        <button (click)="check_in(reservation.reservation.id)" [disabled]="reservation.reservation.tickets.at(0).checkedIn || today.getTime() >= reservation.show.dateTime.getTime() + reservation.show.performance.duration*60000 || today.getTime() <= reservation.show.dateTime.getTime() - 60*60000">Check In</button>
-</div>
+<div class="content">
+  <div *ngIf="reservation_list!=null" class="table-responsive">
+<table class="table table-striped custom-table">
+  <thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Reservation Time</th>
+    <th scope="col">Performance</th>
+    <th scope="col">Auditorium</th>
+    <th scope="col">Seats</th>
+    <th scope="col">Show Time</th>
+    <th scope="col">Price</th>
+    <th scope="col">Delete Reservation</th>
+    <th scope="col">Check In Reservation</th>
+  </tr>
+  </thead>
+<tbody>
+  <tr *ngFor="let reservation of reservation_list" scope="row">
+    <td>{{reservation.reservation.id}}</td>
+    <td>{{reservation.reservation.timestamp.toString().split("GMT")[0]}}</td>
+    <td>{{reservation.show.performance.name}}</td>
+    <td>{{reservation.show.auditorium.name}}</td>
+    <td><span *ngFor="let ticket of reservation.reservation.tickets">{{ticket.seat}}, </span></td>
+    <td>{{reservation.show.dateTime.toString().split("GMT")[0]}}</td>
+    <td>{{reservation.show.performance.ticketPrice*reservation.reservation.tickets.length}}</td>
+    <td><button (click)="delete_reservation(reservation.reservation.id)" [disabled]="reservation.show.dateTime.getTime() - 60*60000 <= today.getTime()">Delete reservation</button></td>
+    <td><button (click)="check_in(reservation.reservation.id)" [disabled]="reservation.reservation.tickets.at(0).checkedIn || today.getTime() >= reservation.show.dateTime.getTime() + reservation.show.performance.duration*60000 || today.getTime() <= reservation.show.dateTime.getTime() - 60*60000">Check In</button></td>
+  </tr>
+</tbody>
+</table>
+  </div>
 <div *ngIf="reservation_list==null || reservation_list.length==0">You have no reservations</div>
+</div>

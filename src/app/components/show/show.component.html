@@ -1,9 +1,25 @@
 <div>Shows</div>
 <a routerLink="/shows/new">Create Show</a>
-<div *ngFor="let show of show_list">
-        <span>{{show.id}}||</span>
-        <span>{{show.dateTime}}||</span>
-        <a routerLink="/shows/{{show.id}}">Update Show</a>
-        <button (click)="delete_show(show.id)">Delete Show</button>
+<div *ngIf="show_list!=null">
+  <div>Your performance is: {{show_list.at(0).performance.name}}</div>
+<table>
+  <thead>
+    <tr>
+      <th>Show ID</th>
+      <th>Show Time</th>
+      <th>Update Show</th>
+      <th>Delete Show</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr *ngFor="let show of show_list">
+        <td>{{show.id}}</td>
+        <td>{{show.dateTime.toString().split("GMT")[0]}}</td>
+        <td><a routerLink="/shows/{{show.id}}" *ngIf="today.getTime()>show.dateTime.getTime() + show.performance.duration*60000">Update Show</a>
+        </td>
+  <td><button (click)="delete_show(show.id)" [disabled]="today.getTime()>show.dateTime.getTime() + show.performance.duration*60000">Delete Show</button></td>
+</tr>
+  </tbody>
+</table>
 </div>
 <div *ngIf="show_list==null || show_list.length==0">There are no shows listed for your performance</div>

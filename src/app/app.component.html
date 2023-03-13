@@ -22,6 +22,9 @@
       <a routerLink="login" *ngIf="!check_user()" class="btn btn-primary">Login</a>
     </td>
     <td>
+      <span *ngIf="check_user()">Logged in as: {{get_user_name()}}</span>
+    </td>
+    <td>
       <button (click)="logout()" *ngIf="check_user()">Logout</button>
     </td>
   </tr>

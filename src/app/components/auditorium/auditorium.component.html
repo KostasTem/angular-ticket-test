@@ -1,12 +1,26 @@
 <div>
-    <a routerLink="/auditoriums/new">Create Auditorium</a><br>
-    <div *ngFor="let aud of auditorium_list">
-        <span>{{aud.id}}||</span>
-        <span>{{aud.name}}||</span>
-        <span>{{aud.rows}}||</span>
-        <span>{{aud.seatsPerRow}}||</span>
-        <a routerLink="/auditoriums/{{aud.id}}">Update Auditorium||</a>
-        <button (click)="delete_auditorium(aud.id)">Delete Auditorium</button>
-    </div>
+  <a routerLink="/auditoriums/new">Create Auditorium</a><br>
+  <table>
+    <thead>
+    <tr>
+      <th>Auditorium ID</th>
+      <th>Name</th>
+      <th>Rows</th>
+      <th>Seats Per Row</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let aud of auditorium_list">
+        <td>{{aud.id}}</td>
+        <td>{{aud.name}}</td>
+        <td>{{aud.rows}}</td>
+        <td>{{aud.seatsPerRow}}</td>
+        <td><a routerLink="/auditoriums/{{aud.id}}">Update</a></td>
+       <td><button (click)="delete_auditorium(aud.id)">Delete</button></td>
+    </tr>
+    </tbody>
+  </table>
   <div *ngIf="auditorium_list==null || auditorium_list.length==0">There are no auditoriums.</div>
 </div>

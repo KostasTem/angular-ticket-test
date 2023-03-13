@@ -46,7 +46,10 @@ export class ReservationComponent implements OnInit{
     this.reservationService.getReservations().subscribe(res => {
       if(res.status==200){
         this.reservation_list = res.body;
-        this.reservation_list.forEach(res => res.show.dateTime = new Date(Date.parse(res.show.dateTime.toString())))
+        this.reservation_list.forEach(res => {
+          res.show.dateTime = new Date(Date.parse(res.show.dateTime.toString()));
+          res.reservation.timestamp = new Date(Date.parse(res.reservation.timestamp.toString()));
+        });
         this.reservation_list.sort(function(a,b){
           return b.show.dateTime.getTime() - a.show.dateTime.getTime();
         });

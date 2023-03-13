@@ -19,6 +19,8 @@ export class ReservationDetailComponent implements OnInit{
 
   show:Show;
 
+  price:number = 0;
+
   constructor(private authService:AuthService,private ticketService:TicketService,private reservationService:ReservationService,private router:Router,private route:ActivatedRoute){}
 
   ngOnInit(): void {
@@ -59,15 +61,18 @@ export class ReservationDetailComponent implements OnInit{
   select_seat(seat:string){
     if(this.selected_tickets.includes(seat)){
       this.selected_tickets.splice(this.selected_tickets.indexOf(seat),1);
+      this.price -= this.show.performance.ticketPrice;
     }
     else{
       if(this.selected_tickets.length<10){
         this.selected_tickets.push(seat);
+        this.price += this.show.performance.ticketPrice;
       }
       else{
         alert("You can't reserve more than 10 seats.");
       }
     }
+    this.price = Math.round(this.price * 10) / 10;
   }
 
   chunkArrayInGroups(arr, size) {

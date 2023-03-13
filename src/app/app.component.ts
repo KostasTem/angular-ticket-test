@@ -38,6 +38,10 @@ export class AppComponent implements OnInit{
     return this.authService.user != null;
   }
 
+  get_user_name(){
+    return this.authService.user.email;
+  }
+
   check_user_role(){
     return this.authService.user.roles;
   }

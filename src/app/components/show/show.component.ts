@@ -11,8 +11,9 @@ import { Router } from '@angular/router';
 })
 export class ShowComponent implements OnInit{
 
-  show_list:Show[] = null
-  
+  show_list:Show[] = null;
+  today = new Date();
+
   constructor(private showService:ShowService,private authService:AuthService,private router:Router){}
 
   ngOnInit(): void {
@@ -35,6 +36,9 @@ export class ShowComponent implements OnInit{
     this.showService.getShowsForPerformance(this.authService.performance.id).subscribe(res => {
       if(res.status==200){
         this.show_list = res.body;
+        this.show_list.forEach(show => {
+          show.dateTime = new Date(Date.parse(show.dateTime.toString()));
+        });
       }
     });
   }
